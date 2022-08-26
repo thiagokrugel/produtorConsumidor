@@ -1,3 +1,4 @@
+package produtorConsumidor;
 import java.util.concurrent.Semaphore;
 
 public class Loja extends Thread {
@@ -17,9 +18,24 @@ public class Loja extends Thread {
     public void run(){
 
         while(true){
-            Venda venda = new Venda();
-            vendas.vendas.add(venda);
-            contadorVendas++;
+            try {
+
+                mutex.acquire();//esperar
+                    Venda venda = new Venda('A', this);
+                    contadorVendas++;
+
+                    System.out.println("Venda na loja: " + nomeLoja + " Número: " + contadorVendas + " Produto: " + venda.nomeProduto);
+
+                    vendas.vendas.add(venda);
+                    System.out.println(vendas.vendas.get(0).nomeProduto);
+                    Thread.sleep(1000);
+                    
+                itens.release();//sinalizar
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }
     }
 
