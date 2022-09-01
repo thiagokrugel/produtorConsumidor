@@ -24,7 +24,6 @@ public class Transportadora extends Thread {
             try {
                 Thread.sleep(random.nextInt(5000)); //arrumar intervalo conforme a tabela no .pdf
 
-
                 itens2.acquire();
                     mutexEntregas.acquire();
                         entregas.entregas.remove(entregas.entregas.get(0));
