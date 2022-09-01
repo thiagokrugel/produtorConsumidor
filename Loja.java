@@ -14,8 +14,10 @@ public class Loja extends Thread {
         this.itens = itens;
     }
 
-    public void sorteiaProduto() {
-        
+    public char sorteiaProduto() {
+        String possibilidades = "ABCDEFGH";
+        char nomeProduto = possibilidades.charAt(random.nextInt(8));
+        return nomeProduto;
     }
 
     public void run(){
@@ -23,7 +25,7 @@ public class Loja extends Thread {
         while(true){
             try {
 
-                Venda venda = new Venda('A', this);
+                Venda venda = new Venda(sorteiaProduto(), this);
                 contadorVendas++;
                 
                 System.out.println("Venda na loja: " + nomeLoja + " Número: " + contadorVendas + " Produto: " + venda.nomeProduto);
