@@ -5,9 +5,10 @@ import java.util.Random;
 public class Fabricante extends Thread{
     char nomeFabricante;
     private Semaphore mutexVendas, itens, itens2, mutexEntregas;
-    FilaVenda vendas;
-    FilaEntrega entregas;
+    private FilaVenda vendas;
+    private FilaEntrega entregas;
 
+    public Semaphore limitadorFabricacao;
 
     public Fabricante(FilaVenda vendas, FilaEntrega entregas, Semaphore mutexVendas, Semaphore itens, Semaphore itens2, Semaphore mutexEntregas){
         this.vendas = vendas;
@@ -16,6 +17,13 @@ public class Fabricante extends Thread{
         this.itens = itens;
         this.itens2 = itens2;
         this.mutexEntregas = mutexEntregas;
+        
+        // Limitador do fabricante de acordo com o tipo de fabricante
+        if (this.nomeFabricante == 'B') {
+            limitadorFabricacao = new Semaphore(1);
+        } else {
+            limitadorFabricacao = new Semaphore(4);
+        }
 
     }
 
@@ -33,6 +41,11 @@ public class Fabricante extends Thread{
                     mutexVendas.release();
 
                     Thread.sleep(random.nextInt(1000)); //arrumar intervalo conforme a tabela no .pdf
+
+                    this.limitadorFabricacao.acquire();
+                        // Tempo de fabricação de acordo com a loja e a venda
+                        new Fabricacao(this, newVenda).start();
+                        // O realese está sendo aplicado na classe Fabricação; 
                     
                     // Cria entrega
                     Entrega entrega = new Entrega();

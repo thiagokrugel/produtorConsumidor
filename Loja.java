@@ -14,6 +14,10 @@ public class Loja extends Thread {
         this.itens = itens;
     }
 
+    public void sorteiaProduto() {
+        
+    }
+
     public void run(){
 
         while(true){
