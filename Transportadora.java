@@ -39,8 +39,10 @@ public class Transportadora extends Thread {
 
                     new Transporte(this, newEntrega).start();
 
-                    System.out.println("Saiu da transportadora: " + this.nomeTransportadora);
-                    //Transporte transporte = new Transporte();    
+                    //System.out.println("Saiu da transportadora: " + this.nomeTransportadora);
+  
+                    System.out.println("Produto: " + newEntrega.venda.nomeProduto + " Pedido: " + newEntrega.venda.loja.contadorVendas +  newEntrega.venda.loja.nomeLoja);
+                    
                 espacos.release();
                 
             }
