@@ -54,12 +54,12 @@ public class Fabricante extends Thread{
                     
                     mutexEntregas.acquire();
                         entregas.entregas.add(entrega);
-                        System.out.println("Fila de entregas: " + entregas.entregas.size());
+                        //System.out.println("Fila de entregas: " + entregas.entregas.size());
                     mutexEntregas.release();
 
                     Thread.sleep(random.nextInt(1000)); //arrumar intervalo conforme a tabela no .pdf
 
-                    System.out.println("Fabricante retira produto");
+                    //System.out.println("Fabricante retira produto");
                 
                 itens2.release();
             }

@@ -1,11 +1,13 @@
 package produtorConsumidor;
 import java.util.concurrent.Semaphore;
+import java.util.Random;
 
 public class Loja extends Thread {
-    char nomeLoja;
-    int contadorVendas;
+    public char nomeLoja;
+    public int contadorVendas;
     private Semaphore mutex, itens;
-    FilaVenda vendas;
+    public FilaVenda vendas;
+    public Random random = new Random();
 
 
     public Loja(FilaVenda vendas, Semaphore mutex, Semaphore itens){
@@ -27,8 +29,7 @@ public class Loja extends Thread {
 
                 Venda venda = new Venda(sorteiaProduto(), this);
                 contadorVendas++;
-                
-                System.out.println("Venda na loja: " + nomeLoja + " Número: " + contadorVendas + " Produto: " + venda.nomeProduto);
+
                 mutex.acquire();
                     vendas.vendas.add(venda);
                 mutex.release();
